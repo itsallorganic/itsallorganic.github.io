@@ -51,7 +51,7 @@
         }
 
         .meta-info { color: #ff8c69; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-size: 0.9rem;}
-        h1 { font-size: 3rem; margin-bottom: 30px; color: #ffcea3; line-height: 1.2;}
+        h1 { font-size: 3rem; margin-bottom: 20px; color: #ffcea3; line-height: 1.2;}
         
         .article-body p {
             font-size: 1.2rem;
@@ -86,6 +86,12 @@
             <p class="meta-info">December 2025 Edition</p>
             <h1>The Solitude of the Sands</h1>
             
+            <div style="margin-bottom: 30px;">
+                <button onclick="toggleSpeech()" id="audio-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid #ff8c69; color: #ff8c69; border-radius: 20px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: all 0.3s;">
+                    <span>▶</span> Listen to Article
+                </button>
+            </div>
+            
             <div class="article-body">
                 
                 <p>In the landscape of modern medical education, empathy is taught as a cornerstone of patient care—a virtuous and indispensable skill. We are trained to see the patient as a whole person, to understand their social context, and to connect with their emotional state. This celebration of empathy, however, often omits a critical discussion: the inherent, and perhaps inevitable, cost of this emotional attunement to the physician. Empathy is a double-edged sword. While a lack of it equates to a failure in healthcare, its true practice can become a source of profound personal distress, and there is no simple "off" switch.</p>
@@ -115,6 +121,52 @@
             <a href="index.html#articles" class="back-link">&larr; Back to Snippets</a>
         </div>
     </div>
+
+    <script>
+        let isSpeaking = false;
+        const synth = window.speechSynthesis;
+        let utterance;
+
+        function toggleSpeech() {
+            const btn = document.getElementById('audio-btn');
+
+            if (isSpeaking) {
+                // Stop speaking
+                synth.cancel();
+                isSpeaking = false;
+                btn.innerHTML = "<span>▶</span> Listen to Article";
+                btn.style.background = "rgba(255,255,255,0.1)";
+                btn.style.color = "#ff8c69";
+            } else {
+                // Start speaking
+                // Get all text from paragraphs in article-body
+                const textToRead = document.querySelector('.article-body').innerText;
+                
+                utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.rate = 1; // Speed
+                utterance.pitch = 1; // Pitch
+
+                // When it finishes naturally
+                utterance.onend = function() {
+                    isSpeaking = false;
+                    btn.innerHTML = "<span>▶</span> Listen to Article";
+                    btn.style.background = "rgba(255,255,255,0.1)";
+                    btn.style.color = "#ff8c69";
+                };
+
+                synth.speak(utterance);
+                isSpeaking = true;
+                btn.innerHTML = "<span>■</span> Stop Listening";
+                btn.style.background = "#ff8c69";
+                btn.style.color = "#301818";
+            }
+        }
+
+        // Stop audio if user leaves the page
+        window.onbeforeunload = function() {
+            synth.cancel();
+        };
+    </script>
 
 </body>
 </html>
