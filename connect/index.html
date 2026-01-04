@@ -4,81 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="../../style.css">
+
     <style>
-        /* Specific styles for the Contact Form */
-        .form-group { margin-bottom: 20px; }
-        
-        input, textarea {
-            width: 100%; 
-            padding: 15px; 
-            background: rgba(255,255,255,0.05); /* Transparent background */
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 5px; 
+        body {
+            /* Adjust path based on where this folder is. Assumes content/connect/ */
+            background-image: url('../../background.jpg'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
             color: #fff;
-            font-family: inherit; 
+        }
+
+        .glass-container {
+            background: rgba(0, 0, 0, 0.75); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin: 50px auto; 
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        h1 { text-align: center; text-transform: uppercase; margin-bottom: 30px; }
+
+        form { display: flex; flex-direction: column; gap: 20px; }
+
+        label { font-size: 0.9rem; color: #ddd; margin-bottom: -10px; }
+
+        input, textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            color: #fff;
             font-size: 1rem;
+            font-family: inherit;
         }
         
-        input:focus, textarea:focus { 
-            outline: none; 
-            border-color: #ff8c69; 
-            background: rgba(255,255,255,0.1); 
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.2);
         }
-        
-        button[type="submit"] {
-            padding: 15px 30px; 
-            background: #ff8c69; 
-            border: none; 
-            border-radius: 5px;
-            color: #301818; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: transform 0.2s;
+
+        button {
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
         }
+        button:hover { opacity: 0.9; }
         
-        button[type="submit"]:hover { 
-            transform: scale(1.02); 
-            background: #ffa486; 
+        .back-link {
+            display: block; text-align: center; margin-top: 30px;
+            color: #bbb; text-decoration: none; border-bottom: 1px dotted #bbb;
+            width: fit-content; margin: 30px auto 0;
         }
     </style>
 </head>
 <body>
 
-    <div id="background-container"></div>
-
-    <header>
-        <div class="logo">HORIZON</div>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../index.html#monthly">Monthly</a></li>
-                <li><a href="../provisional/index.html">Provisional</a></li>
-                <li><a href="#" style="color:#ff8c69;">Connect</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section>
-        <div class="content-box">
-            <h2>Connect</h2>
-            <p>Have thoughts on the article? Reach out to us.</p>
+    <div class="glass-container">
+        <h1>Get in Touch</h1>
+        
+        <form action="https://formspree.io/f/xykzbjla" method="POST">
             
-            <form action="https://formspree.io/f/YOUR_CODE_HERE" method="POST">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
+            <label for="name">Name</label>
+            <input type="text" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <a href="../../index.html" class="back-link">← Back to Home</a>
+    </div>
 
 </body>
 </html>
