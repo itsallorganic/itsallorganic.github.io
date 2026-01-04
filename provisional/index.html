@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Archives</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .archive-container { padding: 150px 50px; max-width: 900px; margin: 0 auto; }
+        .archive-item { background: rgba(0,0,0,0.6); padding: 30px; margin-bottom: 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        .archive-item:hover { transform: translateY(-5px); border-color: #ff8c69; transition: transform 0.3s; }
+    </style>
+</head>
+<body>
+    <div id="background-container"></div>
+    <header>
+        <div class="logo">HORIZON</div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#monthly">Monthly</a></li>
+                <li><a href="#" style="color:#ff8c69;">Provisional</a></li>
+                <li><a href="../connect/index.html">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="archive-container">
+        <h1 style="text-align:center;">Past Articles</h1>
+        <div id="archive-list"></div>
+    </div>
+
+    <script src="article-list.js"></script>
+    <script>
+        const container = document.getElementById('archive-list');
+        if (typeof articles !== 'undefined') {
+            articles.forEach(article => {
+                // If the article is the current one, do not show it in archives
+                if (article.filename.includes('article.html')) return; 
+
+                container.innerHTML += `
+                    <div class="archive-item">
+                        <span style="color:#ff8c69;">${article.date}</span>
+                        <h2 style="font-size:1.8rem; margin:10px 0;">${article.title}</h2>
+                        <p>${article.summary}</p>
+                        <a href="${article.filename}" style="color:#ffd1a8;">Read Archive &rarr;</a>
+                    </div>`;
+            });
+            if (container.innerHTML === "") container.innerHTML = "<p style='text-align:center;'>No archives yet.</p>";
+        }
+    </script>
+</body>
+</html>

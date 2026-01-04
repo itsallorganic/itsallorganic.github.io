@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Specific styles for the Contact Form */
+        .form-group { margin-bottom: 20px; }
+        
+        input, textarea {
+            width: 100%; 
+            padding: 15px; 
+            background: rgba(255,255,255,0.05); /* Transparent background */
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 5px; 
+            color: #fff;
+            font-family: inherit; 
+            font-size: 1rem;
+        }
+        
+        input:focus, textarea:focus { 
+            outline: none; 
+            border-color: #ff8c69; 
+            background: rgba(255,255,255,0.1); 
+        }
+        
+        button[type="submit"] {
+            padding: 15px 30px; 
+            background: #ff8c69; 
+            border: none; 
+            border-radius: 5px;
+            color: #301818; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: transform 0.2s;
+        }
+        
+        button[type="submit"]:hover { 
+            transform: scale(1.02); 
+            background: #ffa486; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="background-container"></div>
+
+    <header>
+        <div class="logo">HORIZON</div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#monthly">Monthly</a></li>
+                <li><a href="../provisional/index.html">Provisional</a></li>
+                <li><a href="#" style="color:#ff8c69;">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <div class="content-box">
+            <h2>Connect</h2>
+            <p>Have thoughts on the article? Reach out to us.</p>
+            
+            <form action="https://formspree.io/f/YOUR_CODE_HERE" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

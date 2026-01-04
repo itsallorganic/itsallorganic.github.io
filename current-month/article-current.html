@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Reader</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific override for Reader Layout */
+        .reader-container { padding: 150px 20px 100px 20px; max-width: 800px; margin: 0 auto; }
+        .article-card { background: rgba(0,0,0,0.7); padding: 50px; border-radius: 10px; }
+        .back-link { display: inline-block; margin-top: 30px; color: #ff8c69; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="background-container"></div>
+
+    <header>
+        <div class="logo">HORIZON</div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#monthly">Monthly</a></li>
+                <li><a href="../provisional/index.html">Provisional</a></li>
+                <li><a href="../connect/index.html">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="reader-container">
+        <div class="article-card">
+            <p style="color:#ff8c69;">December 2025</p>
+            <h1 style="font-size:3rem; margin-bottom:20px;">The Solitude of the Sands</h1>
+            
+            <button onclick="toggleSpeech()" id="audio-btn" style="padding:10px; margin-bottom:20px; background:rgba(255,255,255,0.1); border:1px solid #ff8c69; color:#ff8c69; border-radius:20px; cursor:pointer;">▶ Listen</button>
+            
+            <div class="article-body">
+                <p>PASTE YOUR FULL ARTICLE HERE (The long text about empathy)...</p>
+            </div>
+
+            <a href="../index.html#monthly" class="back-link">&larr; Back</a>
+        </div>
+    </div>
+    
+    <script>
+        /* Audio Script */
+        let isSpeaking = false; const synth = window.speechSynthesis; let utterance;
+        function toggleSpeech() {
+            const btn = document.getElementById('audio-btn');
+            if (isSpeaking) { synth.cancel(); isSpeaking = false; btn.innerText = "▶ Listen"; } 
+            else { 
+                utterance = new SpeechSynthesisUtterance(document.querySelector('.article-body').innerText);
+                utterance.onend = function() { isSpeaking = false; btn.innerText = "▶ Listen"; };
+                synth.speak(utterance); isSpeaking = true; btn.innerText = "■ Stop"; 
+            }
+        }
+        window.onbeforeunload = function() { synth.cancel(); };
+    </script>
+</body>
+</html>

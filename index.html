@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desert Horizon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="background-container"></div>
+    <canvas id="bird-canvas"></canvas>
+
+    <header>
+        <div class="logo">HORIZON</div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#monthly">Monthly</a></li>
+                <li><a href="provisional/index.html">Provisional</a></li>
+                <li><a href="connect/index.html">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="content-box">
+                <h1>The Majestic Silence</h1>
+                <p>Welcome to the digital sanctuary.</p>
+            </div>
+        </section>
+
+        <section id="monthly">
+            <div class="content-box">
+                <h2>Article of the Month</h2>
+                <div id="snippet-container" class="article-snippet">
+                    <p style="color: #999;">Loading...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('bird-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let birds = [];
+        const numberOfBirds = 15;
+        class Bird {
+            constructor() {
+                this.x = Math.random() * -canvas.width;
+                this.y = Math.random() * (canvas.height * 0.4); 
+                this.speedX = Math.random() * 1.5 + 0.5; 
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.scale = Math.random() * 0.6 + 0.3; 
+                this.wingAngle = 0; this.flapSpeed = Math.random() * 0.1 + 0.05;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += Math.sin(this.x / 50) * 0.5; 
+                this.wingAngle += this.flapSpeed;
+                if (this.x > canvas.width + 50) { this.x = -50; this.y = Math.random() * (canvas.height * 0.4); }
+            }
+            draw() {
+                ctx.save(); ctx.translate(this.x, this.y); ctx.scale(this.scale, this.scale);
+                ctx.strokeStyle = 'rgba(60, 40, 40, 0.8)'; ctx.lineWidth = 2; ctx.beginPath();
+                ctx.moveTo(0, 0); ctx.quadraticCurveTo(-10, Math.sin(this.wingAngle) * 5, -20, 0);
+                ctx.moveTo(0, 0); ctx.quadraticCurveTo(10, Math.sin(this.wingAngle) * 5, 20, 0);
+                ctx.stroke(); ctx.restore();
+            }
+        }
+        function initBirds() { birds = []; for (let i = 0; i < numberOfBirds; i++) birds.push(new Bird()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); birds.forEach(bird => { bird.update(); bird.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initBirds(); });
+        initBirds(); animate();
+    </script>
+
+    <script>
+        fetch('current-month/snippet.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('snippet-container').innerHTML = html; })
+            .catch(error => { console.error('Error:', error); });
+    </script>
+
+</body>
+</html>
