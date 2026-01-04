@@ -65,4 +65,68 @@ p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; color: #e0e0e0; }
     color: #fff; text-decoration: none; border-radius: 5px; transition: background 0.3s;
     border: 1px solid rgba(255,255,255,0.2);
 }
+
 .read-more-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* =========================================
+   MOBILE RESPONSIVENESS FIX
+   (Paste this at the very bottom of style.css)
+   ========================================= */
+
+@media screen and (max-width: 768px) {
+
+    /* 1. Fix the Header & Navigation */
+    header {
+        flex-direction: column; /* Stack Logo on top of Menu */
+        padding: 15px 20px;     /* Reduce padding significantly */
+        height: auto;           /* Allow header to grow taller */
+        background: rgba(48, 24, 24, 0.9); /* Darker background for readability */
+    }
+
+    nav {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    nav ul {
+        flex-direction: column; /* Stack menu items vertically */
+        align-items: center;    /* Center them */
+        width: 100%;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin-left: 0;         /* Remove left margin */
+        margin-bottom: 15px;    /* Add bottom spacing */
+        width: 100%;
+        text-align: center;     /* Center the text */
+    }
+
+    nav ul li a {
+        display: block;         /* Make the whole area clickable */
+        padding: 5px;
+        font-size: 1.1rem;      /* Make text slightly bigger for fingers */
+    }
+
+    /* 2. Fix the Content Sections */
+    section {
+        padding: 120px 20px 50px 20px; /* Less side padding, more top padding for header */
+        min-height: auto;       /* Don't force full height on mobile */
+    }
+
+    .content-box {
+        padding: 25px;          /* Reduce internal padding */
+        width: 100%;            /* Use full width */
+    }
+
+    /* 3. Fix Text Sizes */
+    h1 { font-size: 2.5rem; }   /* Shrink big titles */
+    h2 { font-size: 1.8rem; }
+    
+    /* 4. Fix the Article Glass Containers (for the separate pages) */
+    .glass-container {
+        width: 90% !important;
+        margin: 80px auto 20px auto !important;
+        padding: 25px !important;
+    }
+}
