@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cost of Empathetic Care</title>
-    
     <link rel="stylesheet" href="../style.css">
 
     <style>
         body {
-            /* Go up one folder to find background.jpg */
+            /* One folder up to find background */
             background-image: url('../background.jpg'); 
             background-size: cover;
             background-attachment: fixed;
@@ -20,57 +19,73 @@
         }
 
         .glass-container {
-            /* HIGH CONTRAST GLASS EFFECT */
-            /* Dark background (75% opacity) to make white text pop */
             background: rgba(0, 0, 0, 0.75); 
-            
-            /* Blur the image behind the box */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            
-            /* Subtle border */
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            
-            /* Layout & Spacing */
             max-width: 800px;
-            /* Reduced top margin to 30px to reduce space at the top */
             margin: 30px auto; 
             padding: 50px;
             border-radius: 12px;
         }
 
         h1 {
-            text-align: center; /* Title Centered */
+            text-align: center;
             margin-top: 0;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-size: 2.2rem;
             font-weight: 700;
-            letter-spacing: 1px;
             text-transform: uppercase;
+            letter-spacing: 1px;
             border-bottom: 1px solid rgba(255,255,255,0.3);
             padding-bottom: 20px;
         }
 
+        .date {
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+            color: #aaa;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Audio Button Style */
+        .audio-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto 30px auto;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .audio-btn:hover { background: rgba(255,255,255,0.25); }
+
         .article-content p {
-            text-align: left; /* Body Text Left Aligned */
-            line-height: 1.8; /* ample line height for readability */
+            text-align: left;
+            line-height: 1.8; 
             font-size: 1.15rem;
             margin-bottom: 25px;
-            color: #f0f0f0; /* Slightly off-white is easier on the eyes */
+            color: #f0f0f0; 
         }
 
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 40px;
             color: #bbb;
             text-decoration: none;
             border-bottom: 1px dotted #bbb;
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
-            font-size: 0.9rem;
             transition: color 0.3s ease;
         }
         .back-link:hover { color: #fff; border-bottom: 1px solid #fff; }
@@ -80,8 +95,13 @@
 
     <div class="glass-container">
         <h1>The Cost of Empathetic Care</h1>
+        <span class="date">December 2025 Edition</span>
+
+        <button id="speakBtn" class="audio-btn">
+            <span>▶</span> Listen to Article
+        </button>
         
-        <div class="article-content">
+        <div class="article-content" id="articleText">
             <p>
                 In the landscape of modern medical education, empathy is taught as a cornerstone of patient care—a virtuous and indispensable skill. We are trained to see the patient as a whole person, to understand their social context, and to connect with their emotional state. This celebration of empathy, however, often omits a critical discussion: the inherent, and perhaps inevitable, cost of this emotional attunement to the physician. Empathy is a double-edged sword. While a lack of it equates to a failure in healthcare, its true practice can become a source of profound personal distress, and there is no simple "off" switch.
             </p>
@@ -120,5 +140,31 @@
         <a href="index.html" class="back-link">← Back to Archives</a>
     </div>
 
+    <script>
+        const speakBtn = document.getElementById('speakBtn');
+        const articleText = document.getElementById('articleText').innerText;
+        let isSpeaking = false;
+        
+        speakBtn.addEventListener('click', () => {
+            if (isSpeaking) {
+                window.speechSynthesis.cancel();
+                speakBtn.innerHTML = '<span>▶</span> Listen to Article';
+                isSpeaking = false;
+            } else {
+                const utterance = new SpeechSynthesisUtterance(articleText);
+                utterance.lang = 'en-US';
+                utterance.rate = 1; 
+
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    speakBtn.innerHTML = '<span>▶</span> Listen to Article';
+                };
+
+                window.speechSynthesis.speak(utterance);
+                speakBtn.innerHTML = '<span>⏹</span> Stop Listening';
+                isSpeaking = true;
+            }
+        });
+    </script>
 </body>
 </html>
