@@ -52,15 +52,19 @@ section {
 }
 
 /* --- HERO SECTION UPDATES (Fixes the empty space) --- */
+/* --- HERO SECTION --- */
 #hero { 
     align-items: center; 
-    /* Change to flex-start so it sits at the top, not the middle */
-    justify-content: flex-start; 
-    /* Add top padding so it sits below the header */
-    padding-top: 180px; 
-    /* Allow height to be natural, not forced 100vh if you don't want it */
-    min-height: 80vh; 
+    /* Changed from flex-start to center */
+    justify-content: center; 
+    
+    /* Removed the 180px padding since we are centering now */
+    padding-top: 0; 
+    
+    /* Ensure it takes up the full screen height so it can find the "center" */
+    min-height: 100vh; 
 }
+
 #hero .content-box {
     background: transparent; border: none; box-shadow: none; padding: 0;
     text-align: center; max-width: 100%; 
@@ -105,3 +109,4 @@ p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; color: #e0e0e0; }
         width: 90% !important; margin: 80px auto 20px auto !important; padding: 25px !important;
     }
 }
+
