@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- BACKGROUND (Looks for image in SAME folder) --- */
+/* --- BACKGROUND --- */
 #background-container {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
     background-image: url('background.jpg'); 
@@ -17,6 +17,12 @@ body {
     background-size: cover; background-attachment: fixed; 
 }
 
+/* --- SCROLL DIMMING OVERLAY --- */
+#dim-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000; opacity: 0; z-index: -1;
+    pointer-events: none; transition: opacity 0.1s ease-out;
+}
 
 /* --- NAVIGATION --- */
 header {
@@ -45,12 +51,20 @@ section {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Hero Special Style */
+/* --- HERO SECTION UPDATES (Fixes the empty space) --- */
+#hero { 
+    align-items: center; 
+    /* Change to flex-start so it sits at the top, not the middle */
+    justify-content: flex-start; 
+    /* Add top padding so it sits below the header */
+    padding-top: 180px; 
+    /* Allow height to be natural, not forced 100vh if you don't want it */
+    min-height: 80vh; 
+}
 #hero .content-box {
     background: transparent; border: none; box-shadow: none; padding: 0;
     text-align: center; max-width: 100%; 
 }
-#hero { align-items: center; }
 
 h1 { font-size: 4rem; margin-bottom: 20px; color: #ffcea3; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 h2 { font-size: 2.5rem; margin-bottom: 20px; color: #ffcea3; border-bottom: 1px solid rgba(255,206,163, 0.3); padding-bottom: 10px; }
@@ -63,69 +77,31 @@ p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; color: #e0e0e0; }
     color: #fff; text-decoration: none; border-radius: 5px; transition: background 0.3s;
     border: 1px solid rgba(255,255,255,0.2);
 }
-
 .read-more-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
-/* =========================================
-   MOBILE RESPONSIVENESS FIX
-   (Paste this at the very bottom of style.css)
-   ========================================= */
-
+/* --- MOBILE RESPONSIVENESS --- */
 @media screen and (max-width: 768px) {
-
-    /* 1. Fix the Header & Navigation */
     header {
-        flex-direction: column; /* Stack Logo on top of Menu */
-        padding: 15px 20px;     /* Reduce padding significantly */
-        height: auto;           /* Allow header to grow taller */
-        background: rgba(48, 24, 24, 0.9); /* Darker background for readability */
+        flex-direction: column; padding: 15px 20px; height: auto;
+        background: rgba(48, 24, 24, 0.9);
     }
+    nav { width: 100%; margin-top: 15px; }
+    nav ul { flex-direction: column; align-items: center; width: 100%; padding: 0; }
+    nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; text-align: center; }
+    nav ul li a { display: block; padding: 5px; font-size: 1.1rem; }
 
-    nav {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    nav ul {
-        flex-direction: column; /* Stack menu items vertically */
-        align-items: center;    /* Center them */
-        width: 100%;
-        padding: 0;
-    }
-
-    nav ul li {
-        margin-left: 0;         /* Remove left margin */
-        margin-bottom: 15px;    /* Add bottom spacing */
-        width: 100%;
-        text-align: center;     /* Center the text */
-    }
-
-    nav ul li a {
-        display: block;         /* Make the whole area clickable */
-        padding: 5px;
-        font-size: 1.1rem;      /* Make text slightly bigger for fingers */
-    }
-
-    /* 2. Fix the Content Sections */
     section {
-        padding: 120px 20px 50px 20px; /* Less side padding, more top padding for header */
-        min-height: auto;       /* Don't force full height on mobile */
+        padding: 120px 20px 50px 20px; min-height: auto;
     }
+    .content-box { padding: 25px; width: 100%; }
 
-    .content-box {
-        padding: 25px;          /* Reduce internal padding */
-        width: 100%;            /* Use full width */
-    }
+    /* Fix Hero on Mobile too */
+    #hero { padding-top: 220px; } /* More space for the stacked mobile menu */
 
-    /* 3. Fix Text Sizes */
-    h1 { font-size: 2.5rem; }   /* Shrink big titles */
+    h1 { font-size: 2.5rem; }
     h2 { font-size: 1.8rem; }
     
-    /* 4. Fix the Article Glass Containers (for the separate pages) */
     .glass-container {
-        width: 90% !important;
-        margin: 80px auto 20px auto !important;
-        padding: 25px !important;
+        width: 90% !important; margin: 80px auto 20px auto !important; padding: 25px !important;
     }
 }
-
