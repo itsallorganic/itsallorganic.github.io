@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F01FKEWGP6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F01FKEWGP6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-F01FKEWGP6');
-</script>
+      gtag('config', 'G-F01FKEWGP6');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desert Horizon</title>
@@ -18,7 +17,7 @@
 <body>
 
     <div id="background-container"></div>
-    <canvas id="bird-canvas"></canvas>
+    <div id="dim-overlay"></div>
 
     <header>
         <div class="logo">HORIZON</div>
@@ -51,39 +50,15 @@
     </main>
 
     <script>
-        const canvas = document.getElementById('bird-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let birds = [];
-        const numberOfBirds = 15;
-        class Bird {
-            constructor() {
-                this.x = Math.random() * -canvas.width;
-                this.y = Math.random() * (canvas.height * 0.4); 
-                this.speedX = Math.random() * 1.5 + 0.5; 
-                this.speedY = (Math.random() - 0.5) * 0.2;
-                this.scale = Math.random() * 0.6 + 0.3; 
-                this.wingAngle = 0; this.flapSpeed = Math.random() * 0.1 + 0.05;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += Math.sin(this.x / 50) * 0.5; 
-                this.wingAngle += this.flapSpeed;
-                if (this.x > canvas.width + 50) { this.x = -50; this.y = Math.random() * (canvas.height * 0.4); }
-            }
-            draw() {
-                ctx.save(); ctx.translate(this.x, this.y); ctx.scale(this.scale, this.scale);
-                ctx.strokeStyle = 'rgba(60, 40, 40, 0.8)'; ctx.lineWidth = 2; ctx.beginPath();
-                ctx.moveTo(0, 0); ctx.quadraticCurveTo(-10, Math.sin(this.wingAngle) * 5, -20, 0);
-                ctx.moveTo(0, 0); ctx.quadraticCurveTo(10, Math.sin(this.wingAngle) * 5, 20, 0);
-                ctx.stroke(); ctx.restore();
-            }
-        }
-        function initBirds() { birds = []; for (let i = 0; i < numberOfBirds; i++) birds.push(new Bird()); }
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); birds.forEach(bird => { bird.update(); bird.draw(); }); requestAnimationFrame(animate); }
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initBirds(); });
-        initBirds(); animate();
+        const overlay = document.getElementById('dim-overlay');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const maxDarkness = 0.7; 
+            const scrollFactor = 500; 
+            let opacity = scrollPosition / scrollFactor;
+            if (opacity > maxDarkness) opacity = maxDarkness;
+            overlay.style.opacity = opacity;
+        });
     </script>
 
     <script>
@@ -94,5 +69,4 @@
     </script>
 
 </body>
-
 </html>
